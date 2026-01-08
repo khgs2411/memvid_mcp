@@ -37,7 +37,7 @@ Add the following to your `claude_desktop_config.json`:
   "mcpServers": {
     "memvid": {
       "command": "npx",
-      "args": ["-y", "memvid-mcp-server"],
+      "args": ["-y", "memvid-mcp-server@latest"],
       "env": {
         "OPENAI_API_KEY": "sk-...",
         "MEMVID_LOCAL_STORAGE": "0"
