@@ -53,7 +53,7 @@ Add the following to your `claude_desktop_config.json`:
 
 1.  **`create_or_open_memory`**: Initialize a new project memory or open an existing one.
 2.  **`add_content`**: Add text and metadata to the memory.
-3.  **`search_memory`**: Search your memory.
+3.  **`search_memory`**: Search your memory. Use `query="*"` to list all recent items.
 4.  **`ask_memory`**: (Optional) Ask questions about your memory using an LLM.
 
 ## Development
