@@ -2,7 +2,7 @@
   "name": "memvid-mcp-server",
   "module": "index.ts",
   "description": "MCP Server for Memvid",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "logo": "https://memvid.io/logo.png",
   "keywords": [
     "mcp",
@@ -16,10 +16,10 @@
   "homepage": "https://memvid.io",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/memvid/memvid-mcp-server.git"
+    "url": "git+https://github.com/khgs2411/memvid_mcp.git"
   },
   "bugs": {
-    "url": "https://github.com/memvid/memvid-mcp-server/issues"
+    "url": "https://github.com/khgs2411/memvid_mcp/issues"
   },
   "main": "dist/index.js",
   "bin": {
