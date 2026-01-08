@@ -68,3 +68,11 @@ bun run src/index.ts
 # Build
 bun build ./src/index.ts --compile --outfile server
 ```
+
+## Credits
+
+This MCP Server is a wrapper around the powerful **Memvid SDK**.
+Full credit goes to the Memvid team for their excellent technology.
+
+- **NPM Package**: [@memvid/sdk](https://www.npmjs.com/package/@memvid/sdk)
+- **Documentation**: [docs.memvid.com](https://docs.memvid.com)
