@@ -1,0 +1,26 @@
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { CreateMemorySchema } from "./definitions.js";
+import { MemoryManager } from "../memory_manager.js";
+
+export function registerCreateMemory(server: McpServer) {
+  // @ts-ignore
+  server.tool(
+    "create_or_open_memory",
+    "Initialize or open a Memvid memory file for a specific project.",
+    CreateMemorySchema.shape as any,
+    async ({ project_name }: { project_name: string }) => {
+      const manager = MemoryManager.getInstance();
+      const path = manager.getStoragePath(project_name);
+      await manager.getMemory(project_name);
+      
+      return {
+        content: [
+          {
+            type: "text",
+            text: `Successfully initialized memory for project '${project_name}' at ${path}`,
+          },
+        ],
+      };
+    }
+  );
+}

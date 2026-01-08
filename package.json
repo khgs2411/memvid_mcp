@@ -1,0 +1,50 @@
+{
+  "name": "memvid-mcp-server",
+  "module": "index.ts",
+  "description": "MCP Server for Memvid",
+  "version": "1.0.4",
+  "logo": "https://memvid.io/logo.png",
+  "keywords": [
+    "mcp",
+    "memvid",
+    "server",
+    "ai",
+    "agent"
+  ],
+  "author": "Memvid",
+  "license": "MIT",
+  "homepage": "https://memvid.io",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/memvid/memvid-mcp-server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/memvid/memvid-mcp-server/issues"
+  },
+  "main": "dist/index.js",
+  "bin": {
+    "memvid-mcp-server": "./dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "bun build ./src/index.ts --outdir ./dist --target node --packages external",
+    "prepublishOnly": "bun run build"
+  },
+  "type": "module",
+  "private": false,
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/node": "^25.0.3"
+  },
+  "peerDependencies": {
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@memvid/sdk": "^2.0.146",
+    "@modelcontextprotocol/sdk": "^1.25.1",
+    "dotenv": "^17.2.3",
+    "zod": "^3.23.8"
+  }
+}
