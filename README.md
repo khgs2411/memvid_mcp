@@ -52,9 +52,31 @@ Add the following to your `claude_desktop_config.json`:
 ## Tools
 
 1.  **`create_or_open_memory`**: Initialize a new project memory or open an existing one.
+
+    - `project_name` (string): Unique identifier for the project.
+    - `storage_path` (string, optional): Absolute path to the directory where the memory should be stored.
+
 2.  **`add_content`**: Add text and metadata to the memory.
-3.  **`search_memory`**: Search your memory. Use `query="*"` to list all recent items.
+
+    - `project_name` (string): Unique identifier.
+    - `content` (string): Text content to store.
+    - `storage_path` (string, optional): Absolute path to storage directory.
+
+3.  **`search_memory`**: Search your memory.
+
+    - `project_name` (string): Unique identifier.
+    - `query` (string): Search query (use `*` for all recent items).
+    - `storage_path` (string, optional): Absolute path to storage directory.
+
 4.  **`ask_memory`**: (Optional) Ask questions about your memory using an LLM.
+
+    - `project_name` (string): Unique identifier.
+    - `question` (string): Question to ask.
+    - `storage_path` (string, optional): Absolute path to storage directory.
+
+5.  **`memvid_delete_project`**: Delete a project's memory.
+    - `project_name` (string): Unique identifier.
+    - `storage_path` (string, optional): Absolute path to storage directory.
 
 > **Tip:** All tools accept an optional `storage_path` argument. This allows the client to explicitly define where the memory project is stored, overriding the default behavior. Useful for containerized environments.
 
