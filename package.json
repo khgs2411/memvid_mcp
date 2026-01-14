@@ -2,7 +2,7 @@
   "name": "memvid-mcp-server",
   "module": "index.ts",
   "description": "MCP Server for Memvid",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "logo": "https://memvid.io/logo.png",
   "keywords": [
     "mcp",

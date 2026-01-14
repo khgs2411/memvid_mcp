@@ -4,7 +4,7 @@ export const ProjectNameSchema = z.string().describe("Unique identifier for the 
 
 export const CreateMemorySchema = z.object({
   project_name: ProjectNameSchema,
-  storage_path: z.string().optional().describe("Optional absolute path to the directory where the memory project is stored."),
+  storage_path: z.string().optional().describe("Optional absolute path to the PARENT directory (e.g., project root). The server will use/create a 'memvid_mcp' folder INSIDE this path."),
 });
 
 export const AddContentSchema = z.object({
@@ -14,7 +14,7 @@ export const AddContentSchema = z.object({
   metadata: z.record(z.string(), z.any()).optional().describe("Key-value pairs for metadata"),
   tags: z.array(z.string()).optional().describe("Array of string tags"),
   enable_embedding: z.boolean().default(false).optional().describe("Enable vector embedding generation (requires AI provider setup)"),
-  storage_path: z.string().optional().describe("Optional absolute path to the directory where the memory project is stored."),
+  storage_path: z.string().optional().describe("Optional absolute path to the PARENT directory (e.g., project root). The server will use/create a 'memvid_mcp' folder INSIDE this path."),
 });
 
 export const SearchMemorySchema = z.object({
@@ -22,7 +22,7 @@ export const SearchMemorySchema = z.object({
   query: z.string().describe("The search query"),
   limit: z.number().default(5).optional(),
   mode: z.enum(["auto", "lex", "sem"]).default("auto").optional().describe("Search mode: 'lex' (keyword), 'sem' (semantic/vector), 'auto' (smart selection)"),
-  storage_path: z.string().optional().describe("Optional absolute path to the directory where the memory project is stored."),
+  storage_path: z.string().optional().describe("Optional absolute path to the PARENT directory (e.g., project root). The server will use/create a 'memvid_mcp' folder INSIDE this path."),
 });
 
 export const AskMemorySchema = z.object({

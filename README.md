@@ -54,7 +54,7 @@ Add the following to your `claude_desktop_config.json`:
 1.  **`create_or_open_memory`**: Initialize a new project memory or open an existing one.
 
     - `project_name` (string): Unique identifier for the project.
-    - `storage_path` (string, optional): Absolute path to the directory where the memory should be stored.
+    - `storage_path` (string, optional): Absolute path to the PARENT directory (e.g., project root). The server creates a `memvid_mcp` folder inside this path.
 
 2.  **`add_content`**: Add text and metadata to the memory.
 
