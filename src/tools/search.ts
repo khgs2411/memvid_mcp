@@ -13,7 +13,7 @@ export function registerSearchMemory(server: McpServer) {
     SearchMemorySchema.shape as any,
     async (args: SearchMemoryArgs) => {
       const manager = MemoryManager.getInstance();
-      const mem = await manager.getMemory(args.project_name);
+      const mem = await manager.getMemory(args.project_name, args.storage_path);
 
       let results;
       if (args.query === "*") {
@@ -24,7 +24,7 @@ export function registerSearchMemory(server: McpServer) {
              results = await mem.timeline({ k: args.limit });
         } else {
              // Fallback if timeline is missing
-             results = await mem.find(undefined, { k: args.limit });
+             results = await mem.find('', { k: args.limit });
         }
       } else {
         results = await mem.find(args.query, {

@@ -1,10 +1,12 @@
 import { z } from "zod";
 import path from "path";
 
-export const GetProjectContextSchema = z.object({});
+import { GetProjectContextSchema } from "./definitions.js";
 
-export async function getProjectContext() {
-  const cwd = process.cwd();
+type GetProjectContextArgs = z.infer<typeof GetProjectContextSchema>;
+
+export async function getProjectContext(args?: GetProjectContextArgs) {
+  const cwd = args?.storage_path || process.cwd();
   const suggested_project_name = path.basename(cwd);
 
   return {

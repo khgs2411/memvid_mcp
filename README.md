@@ -56,6 +56,8 @@ Add the following to your `claude_desktop_config.json`:
 3.  **`search_memory`**: Search your memory. Use `query="*"` to list all recent items.
 4.  **`ask_memory`**: (Optional) Ask questions about your memory using an LLM.
 
+> **Tip:** All tools accept an optional `storage_path` argument. This allows the client to explicitly define where the memory project is stored, overriding the default behavior. Useful for containerized environments.
+
 ## Development
 
 ```bash

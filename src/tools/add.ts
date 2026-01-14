@@ -13,7 +13,7 @@ export function registerAddContent(server: McpServer) {
     AddContentSchema.shape as any,
     async (args: AddContentArgs) => {
       const manager = MemoryManager.getInstance();
-      const mem = await manager.getMemory(args.project_name);
+      const mem = await manager.getMemory(args.project_name, args.storage_path);
 
       await mem.put({
         text: args.content,

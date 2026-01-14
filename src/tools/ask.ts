@@ -27,7 +27,7 @@ export function registerAskMemory(server: McpServer) {
 
       try {
         const manager = MemoryManager.getInstance();
-        const mem = await manager.getMemory(args.project_name);
+        const mem = await manager.getMemory(args.project_name, args.storage_path);
 
         const answer = await mem.ask(args.question, {
           model: "gpt-4o",

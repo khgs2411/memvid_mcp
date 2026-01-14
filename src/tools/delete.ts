@@ -1,10 +1,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { z } from "zod";
+import { DeleteProjectSchema } from "./definitions.js";
 import { MemoryManager } from "../memory_manager.js";
-
-const DeleteProjectSchema = z.object({
-  project_name: z.string().describe("The name of the project memory to delete."),
-});
+import { z } from "zod";
 
 export function registerDeleteProject(server: McpServer) {
   // @ts-ignore
@@ -14,7 +11,7 @@ export function registerDeleteProject(server: McpServer) {
     DeleteProjectSchema.shape as any,
     async (args: z.infer<typeof DeleteProjectSchema>) => {
       const manager = MemoryManager.getInstance();
-      const success = await manager.deleteProject(args.project_name);
+      const success = await manager.deleteProject(args.project_name, args.storage_path);
 
       return {
         content: [

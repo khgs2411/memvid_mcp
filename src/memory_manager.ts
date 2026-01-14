@@ -36,17 +36,42 @@ export class MemoryManager {
     }
   }
 
-  public getStoragePath(projectName: string): string {
+  public getStoragePath(projectName: string, overridePath?: string): string {
     const safeName = projectName.replace(/[^a-z0-9_-]/gi, "_");
-    return path.join(this.storageDir, `${safeName}.mv2`);
-  }
+    
+    let targetDir = this.storageDir;
 
-  public async getMemory(projectName: string): Promise<Memvid> {
-    if (this.memories.has(projectName)) {
-      return this.memories.get(projectName)!;
+    if (overridePath) {
+      // If override provided, we create a memvid_mcp folder inside it
+      targetDir = path.join(overridePath, "memvid_mcp");
+      console.error(`[Memvid] Using explicit storage path: ${targetDir}`);
+      
+      if (!fs.existsSync(targetDir)) {
+        try {
+          fs.mkdirSync(targetDir, { recursive: true });
+        } catch (e) {
+          console.error(`[Memvid] Failed to create explicit storage dir: ${targetDir}`, e);
+          // Fallback or throw? Throwing is better so user knows path failed
+          throw e; 
+        }
+      }
     }
 
-    const memoryPath = this.getStoragePath(projectName);
+    return path.join(targetDir, `${safeName}.mv2`);
+  }
+
+  public async getMemory(projectName: string, overridePath?: string): Promise<Memvid> {
+    // Note: We might be caching memories by name only. If user switches paths for same project name,
+    // this could be an issue. Ideally cache key should include path if we support this fully.
+    // For now, let's include path in cache key or just clear it if specific path used.
+    
+    const cacheKey = overridePath ? `${overridePath}::${projectName}` : projectName;
+
+    if (this.memories.has(cacheKey)) {
+      return this.memories.get(cacheKey)!;
+    }
+
+    const memoryPath = this.getStoragePath(projectName, overridePath);
     console.error(`[Memvid] Loading memory: ${memoryPath}`);
 
     let mem: Memvid;
@@ -57,19 +82,20 @@ export class MemoryManager {
         mem = await use("basic", memoryPath);
       }
       
-      this.memories.set(projectName, mem);
+      this.memories.set(cacheKey, mem);
       return mem;
     } catch (error) {
       console.error(`[Memvid] Failed to load memory for ${projectName}:`, error);
       throw error;
     }
   }
-  public async deleteProject(projectName: string): Promise<boolean> {
-    const memoryPath = this.getStoragePath(projectName);
 
-    // If loaded, we might want to close it? (SDK doesn't show close(), so just removing ref)
-    if (this.memories.has(projectName)) {
-      this.memories.delete(projectName);
+  public async deleteProject(projectName: string, overridePath?: string): Promise<boolean> {
+    const memoryPath = this.getStoragePath(projectName, overridePath);
+    const cacheKey = overridePath ? `${overridePath}::${projectName}` : projectName;
+
+    if (this.memories.has(cacheKey)) {
+      this.memories.delete(cacheKey);
     }
 
     if (fs.existsSync(memoryPath)) {
