@@ -11,7 +11,8 @@ export function registerCreateMemory(server: McpServer) {
     async (args: { project_name: string; storage_path?: string }) => {
       const manager = MemoryManager.getInstance();
       const path = manager.getStoragePath(args.project_name, args.storage_path);
-      await manager.getMemory(args.project_name, args.storage_path);
+      const project_name = args.project_name;
+      await manager.getMemory(project_name, path);
       
       return {
         content: [
